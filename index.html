@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+    <title>TMII Virtual Reality Tour</title>
+    <script src="./js/aframe/aframe.min.js"></script>
+    <script src="./js/aframe/aframe-event-set-component.min.js"></script>
+    <script src="./js/aframe/aframe-layout-component.min.js"></script>
+    <script src="./js/aframe/aframe-template-component.min.js"></script>
+    <script src="./js/aframe/aframe-proxy-event-component.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <a-assets>
+        <audio id="click-sound" crossorigin="anonymous" src="./audio/click.ogg"></audio>
+        <img id="BSH" crossorigin="anonymous" src="./assets/BSH.jpg" />
+        <img id="BSH2" crossorigin="anonymous" src="./assets//BSH2.jpg" />
+        <img id="garudaOPS" crossorigin="anonymous" src="./assets/garudaOPS.jpg" />
+        <img id="gate" crossorigin="anonymous" src="./assets/gate.jpg" />
+        <img id="gate2" crossorigin="anonymous" src="./assets/gate2.jpg" />
+        <img id="gate3" crossorigin="anonymous" src="./assets/gate3.jpg" />
+        <img id="gate4" crossorigin="anonymous" src="./assets/gate4.jpg" />
+        <img id="GMT" crossorigin="anonymous" src="./assets/GMT.jpg" />
+        <img id="hangar2" crossorigin="anonymous" src="./assets/hangar2.jpg" />
+        <img id="hotel" crossorigin="anonymous" src="./assets/hotel.jpg" />
+        <img id="keluar" crossorigin="anonymous" src="./assets/keluar.jpg" />
+        <img id="keluar2" crossorigin="anonymous" src="./assets/keluar2.jpg" />
+        <img id="keluar3" crossorigin="anonymous" src="./assets/keluar3.jpg" />
+        <img id="kolam" crossorigin="anonymous" src="./assets/kolam.jpg" />
+        <img id="koridor" crossorigin="anonymous" src="./assets/koridor.jpg" />
+        <img id="parkir crossorigin="anonymous" src="./assets/parkir.jpg" />
+        <img id="parkir2" crossorigin="anonymous" src="./assets/parkir2.jpg" />
+        <img id="terminal" crossorigin="anonymous" src="./assets/terminal.jpg" />
+        <img id="terminal2" crossorigin="anonymous" src="./assets/terminal2.jpg" />
+        <img id="PCP" crossorigin="anonymous" src="./assets/PCP.jpg" />
+
+        <!-- Image link template to be reused. -->
+        <script id="link" type="text/html">
+          <a-entity
+            class="link"
+            geometry="primitive: sphere; radius: 0.5; rotation: 90 0 90"
+            material="shader: flat; src: ${thumb}"
+            event-set__mouseenter="scale: 1.2 1.2 1"
+            event-set__mouseleave="scale: 1 1 1"
+            event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+            proxy-event="event: click; to: #image-360; as: fade"
+            sound="on: click; src: #click-sound"
+          >
+          </a-entity>
+        </script>
+      </a-assets>
+
+      <!-- Camera + cursor. -->
+      <a-entity id="camera" camera look-controls>
+        <a-cursor
+          id="cursor"
+          position="0 0 -5"
+          geometry="primitive: ring; radiusInner: 0.05; radiusOuter: 0.1;"
+          material="color: black; shader: flat"
+          cursor="maxDistance: 30; fuse: true"
+          animation__click="property: scale; from: 0.5 0.5 0.5; to: 1 1 1;startEvents: click; dur: 150;easing:easeInQuad;"
+          animation__fusing="property: scale; from: 1 1 1; to: 0.5 0.5 0.5;startEvents: fusing; dur: 1000;easing:easeInQuad;"
+          event-set__mouseenter="_event: mouseenter; color: springgreen"
+          event-set__mouseleave="_event: mouseleave; color: black"
+          raycaster="objects: .link"
+        ></a-cursor>
+      </a-entity>
+      <!-- 360-degree image. -->
+      <a-sky
+        id="image-360"
+        radius="10"
+        src="#tmii-01"
+        animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+        animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"
+      >
+      </a-sky>
+
+      <!-- Image links. -->
+      <a-text value="TMII" position="-5 -4 0.5" rotation="0 90 0"></a-text>
+      <a-entity id="links" layout="type: line; margin: 1.5" position="-5 -3 1.5" rotation="-90 90 0">
+        <a-entity template="src: #link" data-src="#BSH" data-thumb="#BSH"></a-entity>
+        <a-entity template="src: #link" data-src="#BSH2" data-thumb="#BSH2"></a-entity>
+        <a-entity template="src: #link" data-src="#garudaOPS" data-thumb="#garudaOPS"></a-entity>
+      </a-entity>
+      <a-text value="TMII" position="0 -4 -5" rotation="0 0 0"></a-text>
+      <a-entity id="links" layout="type: line; margin: 1.5" position="-2 -3 -5" rotation="-90 0 0">
+        <a-entity template="src: #link" data-src="#gate" data-thumb="#gate"></a-entity>
+        <a-entity template="src: #link" data-src="#gate2" data-thumb="#gate2"></a-entity>
+        <a-entity template="src: #link" data-src="#gate3" data-thumb="#gate3"></a-entity>
+        <a-entity template="src: #link" data-src="#gate4" data-thumb="#gate4"></a-entity>
+      </a-entity>
+      <a-text value="ballroom" position="5 -4 -0.5" rotation="0 -90 0"></a-text>
+      <a-entity id="links" layout="type: line; margin: 1.5" position="5 -3 -1.5" rotation="-90 -90 0">
+        <a-entity template="src: #link" data-src="#keluar" data-thumb="#keluar"></a-entity>
+        <a-entity template="src: #link" data-src="#keluar2" data-thumb="#keluar2"></a-entity>
+        <a-entity template="src: #link" data-src="#keluar3" data-thumb="#keluar3"></a-entity>
+      </a-entity>
+      <a-text value="pintuMasuk" position="0 -4 5" rotation="0 180 0"></a-text>
+      <a-entity id="links" layout="type: line; margin: 1.5" position="0 -3 5" rotation="-90 180 0">
+        <a-entity template="src: #link" data-src="#parkir" data-thumb="#parkir"></a-entity>
+        <a-entity template="src: #link" data-src="#parkir2" data-thumb="#parkir2"></a-entity>
+      </a-entity>
+      <a-text value="masjid" position="-5 -4 0.5" rotation="0 90 0"></a-text>
+      <a-entity id="links" layout="type: line; margin: 1.5" position="-5 -3 1.5" rotation="-90 90 0">
+        <a-entity template="src: #link" data-src="#terminal" data-thumb="#terminal"></a-entity>
+        <a-entity template="src: #link" data-src="#terminal2" data-thumb="#terminal2"></a-entity>
+        <a-entity template="src: #link" data-src="#PCP" data-thumb="#PCP"></a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
