@@ -2,7 +2,7 @@
 
 Proyek ini bertujuan memahami potensi VR dalam menciptakan pengalaman imersif dan realistis. Saya akan membuat website untuk menampilkan aplikasi VR dan menunjukkan kemampuan teknis saya.
 
-![GitHub Logo](qrcode.jpeg)
+![GitHub Logo](qrcode.png)
 
 <li>Klik button demo diatas.</li>
                                 <li>Pastikan tidak menggunakan chrome</li>
